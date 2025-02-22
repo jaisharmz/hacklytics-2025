@@ -69,7 +69,7 @@ def get_tickers(url, filename, index=0):
     tickers = df["Symbol"]
     tickers.to_csv(filename, index=False)
 
-def get_syp500():
+def get_spy500():
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
     filename = "sp500_tickers.csv"
     get_tickers(url, filename)
@@ -79,7 +79,7 @@ def get_russell1000():
     filename = "russell1000_tickers.csv"
     get_tickers(url, filename, index=3)
 
-get_syp500()
+get_spy500()
 get_russell1000()
-SYP_500 = pd.read_csv("sp500_tickers.csv")["Symbol"].tolist()
+SPY_500 = pd.read_csv("sp500_tickers.csv")["Symbol"].tolist()
 RUSSELL_1000 = pd.read_csv("russell1000_tickers.csv")["Symbol"].tolist()
