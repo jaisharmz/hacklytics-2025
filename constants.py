@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 IMPORTANT_TICKERS_36 = [
     # Major Indices
@@ -61,6 +62,8 @@ IMPORTANT_TICKERS_36 = [
 ]
 
 def get_tickers(url, filename, index=0):
+    if filename in os.listdir("."):
+        return
     table = pd.read_html(url)
     df = table[index]
     tickers = df["Symbol"]
