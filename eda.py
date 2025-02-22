@@ -5,7 +5,6 @@
 
 import yfinance as yf
 import matplotlib.pyplot as plt
-import pandas as pd
 from constants import IMPORTANT_TICKERS_36, SYP_500, RUSSELL_1000
 
 # interesting_tickers = ["MSFT", "AAPL", "GOOG", "NVDA", "AMD", "TSLA"]
