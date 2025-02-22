@@ -3,6 +3,6 @@
 3. Find a way to initially cluster the products
 4. Find meta data statistics for the products (e.g. average percentage return, average volatility)
 5. Show clusters in pyvis graph visualization tool (node labels should be meta data statistics)
-6. Heirarchical clustering of nodes into broad price baskets, and then into more and more specific price baskets 
+6. Hierarchical clustering of nodes into broad price baskets, and then into more and more specific price baskets 
     - Use some kind of recursive elbow method
-7. Node within nodes visualization for heirarchical clusters
+7. Node within nodes visualization for hierarchical clusters
