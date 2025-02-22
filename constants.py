@@ -60,9 +60,9 @@ IMPORTANT_TICKERS_36 = [
     "GM",    # General Motors
 ]
 
-def get_tickers(url, filename):
+def get_tickers(url, filename, index=0):
     table = pd.read_html(url)
-    df = table[0]
+    df = table[index]
     tickers = df["Symbol"]
     tickers.to_csv(filename, index=False)
 
@@ -72,9 +72,9 @@ def get_syp500():
     get_tickers(url, filename)
 
 def get_russell1000():
-    url = "https://en.wikipedia.org/wiki/List_of_Russell_1000_companies"
+    url = "https://en.wikipedia.org/wiki/Russell_1000_Index"
     filename = "russell1000_tickers.csv"
-    get_tickers(url, filename)
+    get_tickers(url, filename, index=3)
 
 get_syp500()
 get_russell1000()
