@@ -6,3 +6,15 @@
 6. Hierarchical clustering of nodes into broad price baskets, and then into more and more specific price baskets 
     - Use some kind of recursive elbow method
 7. Node within nodes visualization for hierarchical clusters
+
+2/22:
+updates:
+- model is working
+- clustering is showing great promise
+
+todo:
+- get back stock names for clusters and see if they make sense
+- elbow method for number of clusters
+- train model for longer
+- feed tickers for each cluster into LLM and decide name for clusters
+- do recursive/hierarchical clustering, then do labeling
