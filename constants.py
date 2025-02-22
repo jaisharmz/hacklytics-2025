@@ -82,4 +82,4 @@ def get_russell1000():
 get_syp500()
 get_russell1000()
 SYP_500 = pd.read_csv("sp500_tickers.csv")["Symbol"].tolist()
-RUSSELL_1000 = pd.read_csv("sp500_tickers.csv")["Symbol"].tolist()
+RUSSELL_1000 = pd.read_csv("russell1000_tickers.csv")["Symbol"].tolist()
