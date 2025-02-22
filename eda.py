@@ -5,8 +5,10 @@
 
 import yfinance as yf
 import matplotlib.pyplot as plt
+from constants import IMPORTANT_TICKERS_36, SYP_500, RUSSELL_1000
 
-interesting_tickers = ["MSFT", "AAPL", "GOOG", "NVDA", "AMD", "TSLA"]
+# interesting_tickers = ["MSFT", "AAPL", "GOOG", "NVDA", "AMD", "TSLA"]
+interesting_tickers = SYP_500
 df = yf.download(interesting_tickers, period='5y')
 print(df.shape)
 
