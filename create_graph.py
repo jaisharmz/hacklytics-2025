@@ -5,7 +5,7 @@ from get_news import get_titles
 from pyvis.network import Network
 from create_graph_functions import create_graph
 
-# put key here
+os.environ["OPENAI_API_KEY"] = "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"
 
 client = OpenAI()
 
@@ -28,7 +28,7 @@ response = completion.choices[0].message.content
 tickers = eval(response[response.index("["):response.rindex("]")+1])
 seen = set(tickers)
 news = {}
-max_tickers = 100
+max_tickers = 5
 while tickers:
     print(tickers)
     ticker = tickers.pop(0)
@@ -69,28 +69,26 @@ Nothing else besides this two line format."""},
         else:
             news[key] = description
     
-    completion = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": 
-            """Isolate the ticker symbols that are most likely associated with the prompt. 
-Return the output in the form of a python list with nothing else. No preamble."""},
-            {
-                "role": "user",
-                "content": graph_contents
-            }
-        ]
-    )
+    if len(seen) < max_tickers:
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": 
+                """Isolate the ticker symbols that are most likely associated with the prompt. 
+    Return the output in the form of a python list with nothing else. No preamble."""},
+                {
+                    "role": "user",
+                    "content": graph_contents
+                }
+            ]
+        )
 
-    response = completion.choices[0].message.content
-    tickers_temp = eval(response[response.index("["):response.rindex("]")+1])
-    for j in range(len(tickers_temp)):
-        if tickers_temp[j] not in seen:
-            tickers.append(tickers_temp[j])
-            seen.add(tickers_temp[j])
-    
-    if len(seen) > max_tickers:
-        break
+        response = completion.choices[0].message.content
+        tickers_temp = eval(response[response.index("["):response.rindex("]")+1])
+        for j in range(len(tickers_temp)):
+            if tickers_temp[j] not in seen:
+                tickers.append(tickers_temp[j])
+                seen.add(tickers_temp[j])
 print(news)
 
 create_graph(news, prompt, output_file="graph.html", report_file="report.html", client=client)

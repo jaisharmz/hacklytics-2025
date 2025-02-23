@@ -26,3 +26,9 @@ updates:
 
 todo:
 - NLP to create graph between clusters, where edges explain the relationship between stocks using LLM output (based on news information)
+
+2/23 todo:
+- presentation
+- devpost
+- video
+- other commodities/futures
