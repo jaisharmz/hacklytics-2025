@@ -83,3 +83,12 @@ get_spy500()
 get_russell1000()
 SPY_500 = pd.read_csv("sp500_tickers.csv")["Symbol"].tolist()
 RUSSELL_1000 = pd.read_csv("russell1000_tickers.csv")["Symbol"].tolist()
+
+STOCK_CLUSTER_NAMES = {
+    0: "Diverse Industrials and Consumer Services",
+    1: "Tech and Growth Leaders",
+    2: "Financials and Essential Services",
+    3: "Blue-Chip and Diverse Holdings",
+    4: "Innovation and Market Leaders",
+    5: "Energy and Strategic Assets"
+}
