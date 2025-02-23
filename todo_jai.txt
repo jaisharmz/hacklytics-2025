@@ -11,6 +11,7 @@
 updates:
 - model is working
 - clustering is showing great promise
+- did some pca interpretability
 
 todo:
 - get back stock names for clusters and see if they make sense
@@ -18,3 +19,10 @@ todo:
 - train model for longer
 - feed tickers for each cluster into LLM and decide name for clusters
 - do recursive/hierarchical clustering, then do labeling
+
+9:00 pm:
+updates: 
+- capabilities added to hacklytics2025 copy.ipynb file: recursive clustering using elbow method, dendrogram
+
+todo:
+- NLP to create graph between clusters, where edges explain the relationship between stocks using LLM output (based on news information)
