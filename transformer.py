@@ -76,3 +76,51 @@ x = torch.randn(batch_size, 1, time_steps)  # Example batch
 model = TransformerAutoencoder(time_steps)
 output, latent = model(x)
 print(output.shape, latent.shape)  # Expected: [32, 1, 100] and [32, 100, 64]
+
+def find_similar_within_interval(X, model, device, trend_of_interest, interval_min, interval_max, top_k):
+  # trend_of_interest: index of user selected trend in the data
+  # interval_min and interval_max determined by user (interpolate to [0, sequence length])
+  assert interval_min < interval_max
+  X_subset = X[:,:,interval_min:interval_max]
+  model.eval()
+  _, latents = model(torch.tensor(X_subset, dtype=torch.float32).to(device))
+  latents = latents.cpu().detach().numpy()
+  closest_ranks = np.sum((all_latents[trend_of_interest] - all_latents) ** 2, axis=1).argsort()
+  closest_ranks = closest_ranks[:top_k]
+  return {closest_ranks[i]: X[i] for i in range(closest_ranks.shape[0])}
+
+def find_arbitrage(X, model, device, trend_of_interest, interval_min, interval_max, top_k):
+  assert interval_min < interval_max
+  # Looks at the past month's worth of data and finds stocks whose temporal embeddings are the most similar
+  # but whose stock data have the largest discrepancy in the past month
+
+  # Embed data outside interval and compare similarity
+  interpolation = np.linspace(X[:,interval_min], X[:,interval_max], num=interval_max - interval_min, axis=1)
+  X_outside = X.copy()
+  X_outside[:,interval_min:interval_max] = interpolation
+  model.eval()
+  dataset = TensorDataset(torch.tensor(X_outside, dtype=torch.float32).unsqueeze(1))
+  loader = DataLoader(dataset, batch_size=1, shuffle=False)
+  latents_lst = []
+  for (batch,) in loader:
+    _, latents = model(batch.to(device))
+    latents = latents.cpu().detach().numpy()
+    latents_lst.append(latents)
+  latents_lst = np.concatenate(latents_lst)
+  similarity = np.sum((latents_lst[trend_of_interest] - latents_lst) ** 2, axis=1)
+
+  # Embed data within interval and compare dissimilarity
+  X_within = X[:,interval_min:interval_max]
+  model.eval()
+  dataset = TensorDataset(torch.tensor(X_within, dtype=torch.float32).unsqueeze(1))
+  loader = DataLoader(dataset, batch_size=1, shuffle=False)
+  latents_lst = []
+  for (batch,) in loader:
+    _, latents = model(batch.to(device))
+    latents = latents.cpu().detach().numpy()
+    latents_lst.append(latents)
+  latents_lst = np.concatenate(latents_lst)
+  dissimilarity = -1 * np.sum((latents_lst[trend_of_interest] - latents_lst) ** 2, axis=1)
+
+  cost = similarity * 0.95 + dissimilarity * 0.05
+  return cost
