@@ -5,7 +5,7 @@ from get_news import get_titles
 from pyvis.network import Network
 from create_graph_functions import create_graph
 
-os.environ["OPENAI_API_KEY"] = "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"
+# api key
 
 client = OpenAI()
 
