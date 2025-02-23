@@ -1,27 +1,30 @@
 # Jack Street
 ## About
-Jack Street transforms financial data visualization with AI-driven temporal embeddings, clustering stocks into insightful price baskets that reveal macroeconomic trends and hidden market patterns.
+Jack Street redefines financial data visualization with AI-driven temporal embeddings. By clustering stocks into insightful price baskets, we reveal macroeconomic trends and hidden market patterns, empowering investors with data-driven insights.
 
 ## Capabilities
-### Natural Language Processing Visualized on Graphs
-- Graph using NLP to visualize financial news
+### Natural Language Processing on Graphs
+- Visualize financial news using NLP-driven graph representations.
 ### Pretraining a Foundation Model
-- Foundation model for temporal embedding of historical financial data
-- Visualize embeddings using PCA; color PCA by average percentage increase, total percentage increase, correlation with a particular stock; this shows that embeddings preserve important features about the data
+- Pretrained a foundation model on historical financial data to generate temporal embeddings.
+- PCA to visualizations of embeddings demonstrate that latent representations preserve key financial attributes such as:
+    - Average percentage increase
+    - Total percentage increase
+    - Correlation with specific stocks
 ### Clustering Stocks Using Temporal Embeddings
-- KMeans clustering of latent representation data to divide data into clusters and subclusters; clusters and subclusters are interpretable based on stock tickers that are in those clusters
-    - Create Price baskets of smaller sectors of the macroeconomy that can be tracked
-### Statistical Arbitrage Opportunities
-- Given a particular stock, identify statistical arbitrage opportunities based on data from past couple of months; find other stocks with similar histories but different data in the last couple of months
-    - Example: If I know that coke and pepsi are almost always in line with each other, and coke stock fell today, i can make a reasonable assumption that if we buy coke that we will get some kind of profit.
-### Similar Time Intervals
-- Given a selected time interval for a stock, identify other stocks with similar behavior during that time period
+- Apply K-Means clustering to latent representations, creating interpretable and meaningful clusters based on stock tickers.
+- Form price baskets that represent different macroeconomic sectors, enabling better market tracking.
+### Identifying Statistical Arbitrage Opportunities
+- Detect stocks with similar historical trends but recent deviations, revealing potential statistical arbitrage opportunities.
+- Example: If Coke and Pepsi typically move in sync but Coke’s stock drops unexpectedly, an investor might anticipate a price correction, creating a buying opportunity.
+### Finding Similar Time Intervals
+- Given a selected time period for a stock, identify other stocks with similar market behavior during that interval.
 
-## User Interface and User Experience
-### Graph Representation
-- The React interface embeds the scientific / data driven clustering of temporal embeddings in a graph-like structure similar to a Linux directory system
-    - Users start with several broad clusters of the macroeconomy price basket
-    - Then, users can click into sub clusters to get more specific about what type of price basket they want to track
-### Visualizations and Statistics
-- At tree nodes that are not individual stock tickers, users can view interactive graph visualizations as well as meta statistics about that cluster's price basket such as the average rate of return and volatility
-- At leaf nodes that represent individual stock tickers, users can visualize stock data, select time intervals to find stocks with similar behavior during those intervals, and identify statistical arbitrage opportunities with stocks that have similar histories but diverging data in recent months
+## User Interface & Experience
+### Graph-Based Navigation
+- A React-based interface presents scientific clustering of temporal embeddings in a hierarchical graph, resembling a Linux directory system.
+- Users start with broad macroeconomic price baskets and can drill down into sub-clusters for more specific market segments.
+### Interactive Visualizations & Statistics
+- Cluster-Level Insights: View interactive graph visualizations and meta-statistics for each price basket, including average return rates and volatility.
+- Stock-Level Insights: Access detailed stock data and compare time intervals to find similar behavioral patterns.
+Identify statistical arbitrage opportunities by analyzing stocks with shared histories but diverging recent trends.
