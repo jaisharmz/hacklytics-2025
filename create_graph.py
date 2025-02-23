@@ -5,7 +5,7 @@ from get_news import get_titles
 from pyvis.network import Network
 from create_graph_functions import create_graph
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "api-key-here"
 client = OpenAI()
 
 prompt = "what is the news about apple?"
