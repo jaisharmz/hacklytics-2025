@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "white"}, "id": "Mag-7", "label": "Mag-7", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "America", "label": "America", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Amazon", "label": "Amazon", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "RegulationEU", "label": "RegulationEU", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Android", "label": "Android", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "U.S.", "label": "U.S.", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Gulf", "label": "Gulf", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Italy", "label": "Italy", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Buffett", "label": "Buffett", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Citi", "label": "Citi", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Robotics", "label": "Robotics", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "YouTube", "label": "YouTube", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Research", "label": "Research", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "FAAMG", "label": "FAAMG", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "DMA", "label": "DMA", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Palantir", "label": "Palantir", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "EU", "label": "EU", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Affordable", "label": "Affordable", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Digital", "label": "Digital", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Analysts", "label": "Analysts", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "AIMoat", "label": "AIMoat", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "iPhone", "label": "iPhone", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Apple", "label": "Apple", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "UK", "label": "UK", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Anthropic", "label": "Anthropic", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "China", "label": "China", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Qualcomm", "label": "Qualcomm", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "CloudAccenture", "label": "CloudAccenture", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Mag7", "label": "Mag7", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "SearchAI", "label": "SearchAI", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Dividend", "label": "Dividend", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Indonesia", "label": "Indonesia", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Premium-Lite", "label": "Premium-Lite", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "DeepSeek", "label": "DeepSeek", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Q4", "label": "Q4", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "UK-Regulator", "label": "UK-Regulator", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "In-House", "label": "In-House", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Google", "label": "Google", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Alphabet", "label": "Alphabet", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": "Baidu", "label": "Baidu", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": "Apple", "title": "Apple\u0027s iPhone 16 now boasts five models with the 16e release set for February 22, 2025.", "to": "iPhone"}, {"from": "Apple", "title": "Apple Intelligence plans to add more languages and make its debut in the EU on February 21, 2025.", "to": "EU"}, {"from": "DMA", "title": "EU regulators are set to charge Google for breaking DMA laws as reported on February 21, 2025.", "to": "Google"}, {"from": "Apple", "title": "Apple removes the cloud data protection feature in the UK after the government wanted secret access on February 21, 2025.\nApple has raised concerns that proposed regulatory remedies in the UK for mobile browsers could stifle innovation within the tech industry.", "to": "UK"}, {"from": "Apple", "title": "Apple picks up pace in replacing hardware with in-house solutions as reported by Kuo on February 20, 2025.", "to": "In-House"}, {"from": "FAAMG", "title": "From FAAMG to Mag 7: Performance of mega-cap stocks has been analyzed since the COVID bear-market on February 20, 2025.", "to": "Mag-7"}, {"from": "Apple", "title": "Citi expects Apple\u0027s iPhone 16e to account for 10% of its 2025 units sold, as stated on February 20, 2025.", "to": "Citi"}, {"from": "Qualcomm", "title": "Qualcomm trades higher as Apple confirms the inclusion of an in-house modem in the iPhone 16e on February 19, 2025.", "to": "iPhone"}, {"from": "Affordable", "title": "Apple unveils a \u0027more affordable\u0027 iPhone 16e starting at $599 on February 19, 2025.", "to": "Apple"}, {"from": "Apple", "title": "Marjorie Taylor Greene discloses purchases of Palantir, Apple, Intel, and others on February 18, 2025.", "to": "Palantir"}, {"from": "Apple", "title": "Apple discusses why Warren Buffett sold shares, as reported on February 16, 2025.", "to": "Buffett"}, {"from": "Amazon", "title": "Apple and Amazon struggle with next-gen AI upgrades for their voice assistants on February 15, 2025.", "to": "Apple"}, {"from": "Apple", "title": "Apple\u0027s China AI moves are declared a \u0027big step forward\u0027 by Wedbush on February 14, 2025.", "to": "China"}, {"from": "Apple", "title": "Apple is still working with Baidu for AI features in China despite its partnership with Alibaba, as reported on February 13, 2025.", "to": "Baidu"}, {"from": "Android", "title": "Apple TV+ is set to launch on Android phones, according to Bloomberg on February 12, 2025.", "to": "Apple"}, {"from": "Apple", "title": "Apple pursues moving some production to Indonesia amid an iPhone 16 ban, as reported on February 12, 2025.", "to": "Indonesia"}, {"from": "Apple", "title": "Apple is exploring humanoid and non-humanoid robotics as analyzed on February 12, 2025.", "to": "Robotics"}, {"from": "Apple", "title": "Research shows warning signs for Apple, issued on February 12, 2025.", "to": "Research"}, {"from": "Apple", "title": "Apple states that the UK regulator\u0027s remedy options for mobile browsers would impact innovation on February 19, 2025.", "to": "UK-Regulator"}, {"from": "Analysts", "title": "Apple has one of the biggest opportunities in the world ahead of it, analysts suggest on February 18, 2025.", "to": "Apple"}, {"from": "Alphabet", "title": "Alphabet is set to dominate the AI race, showcasing a competitive edge against its rival Google amidst regulatory scrutiny.", "to": "Google"}, {"from": "Premium-Lite", "title": "YouTube is planning to introduce a \u0027premium lite\u0027 subscription model, indicating a strategic shift in how Alphabet monetizes its platforms.", "to": "YouTube"}, {"from": "CloudAccenture", "title": "Accenture has announced a collaboration with Google Cloud in Saudi Arabia, enhancing services and solutions through cloud technology.", "to": "Google"}, {"from": "China", "title": "China is targeting U.S. tech firms with antitrust allegations as tensions rise over tariff disputes and competition in technology.", "to": "U.S."}, {"from": "Anthropic", "title": "Google has partnered with Amazon-backed Anthropic to develop a hybrid AI model with enhanced reasoning capabilities, illustrating vast innovation in the AI sector.", "to": "Google"}, {"from": "Alphabet", "title": "Alphabet is considered one of the cheapest stocks among the Mag 7 group, drawing interest from investors looking for growth opportunities.", "to": "Mag7"}, {"from": "Google", "title": "Google\u0027s advancements in AI for search capabilities are crucial for maintaining its market dominance, particularly in light of emerging competitors.", "to": "SearchAI"}, {"from": "Alphabet", "title": "Alphabet is recognized as a potential strong dividend growth stock, with discussions surrounding its undervaluation in the current market.", "to": "Dividend"}, {"from": "Google", "title": "Google\u0027s recent settlement of \u20ac326M over a tax case in Italy highlights the ongoing scrutiny faced by multinational tech giants regarding tax compliance.", "to": "Italy"}, {"from": "Alphabet", "title": "Investors view Alphabet\u0027s mixed results in the fourth quarter as a potential buying opportunity, given its strong market position.", "to": "Q4"}, {"from": "Amazon", "title": "The collaboration between Amazon and Anthropic reflects the growing investments in AI technologies by major tech firms, reshaping the landscape of artificial intelligence.", "to": "Anthropic"}, {"from": "Digital", "title": "The European Union\u0027s regulatory actions against Google for alleged violations of the Digital Markets Act signify increasing scrutiny of major tech companies.", "to": "RegulationEU"}, {"from": "AIMoat", "title": "Alphabet continues to build a formidable moat around its AI capabilities, ensuring its competitive advantage in the fast-evolving tech environment.", "to": "Alphabet"}, {"from": "DeepSeek", "title": "DeepSeek\u0027s emergence poses a challenge for Google, as the company strives to maintain its AI lead amidst rising competition.", "to": "Google"}, {"from": "America", "title": "The renaming of the Gulf of Mexico to Gulf of America by Google and Apple maps marks a significant cultural shift in geographical representation.", "to": "Gulf"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
