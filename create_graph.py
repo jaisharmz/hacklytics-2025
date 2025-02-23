@@ -5,7 +5,7 @@ from get_news import get_titles
 from pyvis.network import Network
 from create_graph_functions import create_graph
 
-# api
+
 
 client = OpenAI()
 

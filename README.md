@@ -28,3 +28,5 @@ Jack Street redefines financial data visualization with AI-driven temporal embed
 - Cluster-Level Insights: View interactive graph visualizations and meta-statistics for each price basket, including average return rates and volatility.
 - Stock-Level Insights: Access detailed stock data and compare time intervals to find similar behavioral patterns.
 Identify statistical arbitrage opportunities by analyzing stocks with shared histories but diverging recent trends.
+
+<!-- TODO: Dendrogram -->
